@@ -13,7 +13,7 @@ import Matter from 'matter-js';
 import {GameEngine} from 'react-native-game-engine';
 
 import Player from './components/Player';
-import Floor from './components/Floor';
+import Box from './components/Box';
 import Physics, {resetPipes} from './utils/physics';
 import constants from './constants';
 // import Images from './assets/Images';
@@ -36,6 +36,9 @@ export default class App extends Component {
     let engine = Matter.Engine.create({enableSleeping: false});
     let world = engine.world;
     world.gravity.y = 0.0;
+    const boxSize = Math.trunc(
+      Math.max(constants.MAX_WIDTH, constants.MAX_HEIGHT) * 0.075,
+    );
 
     let player = Matter.Bodies.rectangle(
       constants.MAX_WIDTH / 2,
@@ -44,23 +47,15 @@ export default class App extends Component {
       constants.BIRD_HEIGHT,
     );
 
-    let floor1 = Matter.Bodies.rectangle(
+    const floor = Matter.Bodies.rectangle(
       constants.MAX_WIDTH / 2,
-      constants.MAX_HEIGHT - 25,
-      constants.MAX_WIDTH + 4,
-      50,
+      constants.MAX_HEIGHT - boxSize / 2,
+      constants.MAX_WIDTH,
+      boxSize,
       {isStatic: true},
     );
 
-    let floor2 = Matter.Bodies.rectangle(
-      constants.MAX_WIDTH + constants.MAX_WIDTH / 2,
-      constants.MAX_HEIGHT - 25,
-      constants.MAX_WIDTH + 4,
-      50,
-      {isStatic: true},
-    );
-
-    Matter.World.add(world, [player, floor1, floor2]);
+    Matter.World.add(world, [player, floor]);
     Matter.Events.on(engine, 'collisionStart', event => {
       var pairs = event.pairs;
 
@@ -69,8 +64,12 @@ export default class App extends Component {
 
     return {
       physics: {engine: engine, world: world},
-      floor1: {body: floor1, renderer: Floor},
-      floor2: {body: floor2, renderer: Floor},
+      floor: {
+        body: floor,
+        size: [constants.MAX_WIDTH, boxSize],
+        color: 'green',
+        renderer: Box,
+      },
       player: {body: player, pose: 1, renderer: Player},
     };
   };

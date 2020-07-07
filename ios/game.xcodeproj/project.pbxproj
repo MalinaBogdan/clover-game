@@ -161,7 +161,6 @@
 				8A8B97BE33ED42BCC2B76EF9 /* Pods-game-tvOSTests.debug.xcconfig */,
 				8ECD17C24ACECEB3DCE9C1C4 /* Pods-game-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
