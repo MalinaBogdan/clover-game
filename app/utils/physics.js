@@ -111,86 +111,18 @@ const Physics = (entities, {touches, time, dispatch}) => {
   let world = entities.physics.world;
   let player = entities.player.body;
 
-  let hadTouches = false;
-  touches
-    .filter(t => t.type === 'press')
-    .forEach(t => {
-      if (!hadTouches) {
-        if (world.gravity.y === 0.0) {
-          world.gravity.y = 1.2;
-
-          addPipesAtLocation(
-            constants.MAX_WIDTH * 2 - constants.PIPE_WIDTH / 2,
-            world,
-            entities,
-          );
-          addPipesAtLocation(
-            constants.MAX_WIDTH * 3 - constants.PIPE_WIDTH / 2,
-            world,
-            entities,
-          );
-        }
-
-        hadTouches = true;
-        Matter.Body.setVelocity(player, {
-          x: player.velocity.x,
-          y: -10,
-        });
-      }
-    });
+  world.gravity.y = 1.2;
 
   Matter.Engine.update(engine, time.delta);
 
-  Object.keys(entities).forEach(key => {
-    if (key.indexOf('pipe') === 0 && entities.hasOwnProperty(key)) {
-      Matter.Body.translate(entities[key].body, {x: -2, y: 0});
-
-      if (
-        key.indexOf('Top') !== -1 &&
-        parseInt(key.replace('pipe', '')) % 2 === 0
-      ) {
-        if (
-          entities[key].body.position.x <= player.position.x &&
-          !entities[key].scored
-        ) {
-          entities[key].scored = true;
-          dispatch({type: 'score'});
-        }
-
-        if (entities[key].body.position.x <= -1 * (constants.PIPE_WIDTH / 2)) {
-          let pipeIndex = parseInt(key.replace('pipe', ''));
-          delete entities['pipe' + (pipeIndex - 1) + 'Top'];
-          delete entities['pipe' + (pipeIndex - 1)];
-          delete entities['pipe' + pipeIndex + 'Top'];
-          delete entities['pipe' + pipeIndex];
-
-          addPipesAtLocation(
-            constants.MAX_WIDTH * 2 - constants.PIPE_WIDTH / 2,
-            world,
-            entities,
-          );
-        }
-      }
-    } else if (key.indexOf('floor') === 0) {
-      if (entities[key].body.position.x <= (-1 * constants.MAX_WIDTH) / 2) {
-        Matter.Body.setPosition(entities[key].body, {
-          x: constants.MAX_WIDTH + constants.MAX_WIDTH / 2,
-          y: entities[key].body.position.y,
-        });
-      } else {
-        Matter.Body.translate(entities[key].body, {x: -2, y: 0});
-      }
+  touches.map(t => {
+    if (t.type === 'move') {
+      Matter.Body.setVelocity(player, {
+        x: t.delta.pageX,
+        y: 0,
+      });
     }
   });
-
-  tick += 1;
-  if (tick % 5 === 0) {
-    pose = pose + 1;
-    if (pose > 3) {
-      pose = 1;
-    }
-    entities.player.pose = pose;
-  }
 
   return entities;
 };

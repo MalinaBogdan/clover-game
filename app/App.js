@@ -59,7 +59,7 @@ export default class App extends Component {
     Matter.Events.on(engine, 'collisionStart', event => {
       var pairs = event.pairs;
 
-      this.gameEngine.dispatch({type: 'game-over'});
+      // this.gameEngine.dispatch({type: 'game-over'});
     });
 
     return {
@@ -115,7 +115,7 @@ export default class App extends Component {
           entities={this.entities}>
           <StatusBar hidden={true} />
         </GameEngine>
-        <Text style={styles.score}>{this.state.score}</Text>
+        {/* <Text style={styles.score}>{this.state.score}</Text> */}
         {!this.state.running && (
           <TouchableOpacity
             style={styles.fullScreenButton}
