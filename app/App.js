@@ -12,6 +12,9 @@ import {GameEngine} from 'react-native-game-engine';
 import Player from './components/Player';
 import Box from './components/Box';
 import Arrow from './components/controls/Arrow';
+import CameraRenderer from './components/CameraRenderer';
+
+import Camera from './utils/camera';
 import Physics, {resetPipes} from './utils/physics';
 import constants from './constants';
 import {arrowSize, arrows} from './constants/controls';
@@ -33,7 +36,9 @@ export default class App extends Component {
   setupWorld = () => {
     let engine = Matter.Engine.create({enableSleeping: false});
     let world = engine.world;
+
     world.gravity.y = 0.0;
+
     const boxSize = Math.trunc(
       Math.max(constants.MAX_WIDTH, constants.MAX_HEIGHT) * 0.075,
     );
@@ -53,6 +58,11 @@ export default class App extends Component {
       {isStatic: true},
     );
 
+    const camera = {
+      offsetY: 0,
+      offsetX: 0,
+    };
+
     Matter.World.add(world, [player, floor]);
     Matter.Events.on(engine, 'collisionStart', event => {
       var pairs = event.pairs;
@@ -61,6 +71,7 @@ export default class App extends Component {
     });
 
     return {
+      camera,
       physics: {engine: engine, world: world},
       floor: {
         body: floor,
@@ -102,10 +113,11 @@ export default class App extends Component {
             this.gameEngine = ref;
           }}
           style={styles.gameContainer}
-          systems={[Physics]}
+          systems={[Physics, Camera]}
           running={this.state.running}
           onEvent={this.onEvent}
-          entities={this.entities}>
+          entities={this.entities}
+          renderer={CameraRenderer}>
           <StatusBar hidden={true} />
         </GameEngine>
         <View style={styles.arrowsContainer}>
