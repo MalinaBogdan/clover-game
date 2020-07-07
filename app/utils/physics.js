@@ -111,7 +111,7 @@ const Physics = (entities, {touches, time, dispatch}) => {
   let world = entities.physics.world;
   let player = entities.player.body;
 
-  world.gravity.y = 1.2;
+  world.gravity.y = 1;
 
   Matter.Engine.update(engine, time.delta);
 

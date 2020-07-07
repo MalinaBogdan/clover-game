@@ -17,6 +17,7 @@ import CameraRenderer from './components/CameraRenderer';
 import Camera from './utils/camera';
 import Physics, {resetPipes} from './utils/physics';
 import constants from './constants';
+import map from './constants/map';
 import {arrowSize, arrows} from './constants/controls';
 
 export default class App extends Component {
@@ -39,10 +40,6 @@ export default class App extends Component {
 
     world.gravity.y = 0.0;
 
-    const boxSize = Math.trunc(
-      Math.max(constants.MAX_WIDTH, constants.MAX_HEIGHT) * 0.075,
-    );
-
     let player = Matter.Bodies.rectangle(
       constants.MAX_WIDTH / 2,
       constants.MAX_HEIGHT / 2,
@@ -50,42 +47,28 @@ export default class App extends Component {
       constants.BIRD_HEIGHT,
     );
 
-    const floor = Matter.Bodies.rectangle(
-      constants.MAX_WIDTH / 2,
-      constants.MAX_HEIGHT - boxSize / 2,
-      constants.MAX_WIDTH,
-      boxSize,
-      {isStatic: true},
-    );
-
     const camera = {
       offsetY: 0,
       offsetX: 0,
     };
 
-    Matter.World.add(world, [player, floor]);
+    Matter.World.add(world, [player, ...map.map(({body}) => body)]);
     Matter.Events.on(engine, 'collisionStart', event => {
       var pairs = event.pairs;
-
+      console.log(event);
       // this.gameEngine.dispatch({type: 'game-over'});
     });
 
     return {
+      ...map,
       camera,
-      physics: {engine: engine, world: world},
-      floor: {
-        body: floor,
-        size: [constants.MAX_WIDTH, boxSize],
-        color: 'green',
-        renderer: Box,
-      },
+      physics: {engine, world},
       player: {body: player, pose: 1, renderer: Player},
     };
   };
 
   onEvent = e => {
     if (e.type === 'game-over') {
-      //Alert.alert("Game Over");
       this.setState({
         running: false,
       });
@@ -97,7 +80,6 @@ export default class App extends Component {
   };
 
   reset = () => {
-    resetPipes();
     this.gameEngine.swap(this.setupWorld());
     this.setState({
       running: true,
@@ -183,7 +165,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: 'black',
-    opacity: 0.8,
+    opacity: 0.1,
     justifyContent: 'center',
     alignItems: 'center',
   },
