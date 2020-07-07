@@ -115,14 +115,14 @@ const Physics = (entities, {touches, time, dispatch}) => {
 
   Matter.Engine.update(engine, time.delta);
 
-  touches.map(t => {
-    if (t.type === 'move') {
-      Matter.Body.setVelocity(player, {
-        x: t.delta.pageX,
-        y: 0,
-      });
-    }
-  });
+  // touches.map(t => {
+  //   if (t.type === 'move') {
+  //     Matter.Body.setVelocity(player, {
+  //       x: t.delta.pageX,
+  //       y: 0,
+  //     });
+  //   }
+  // });
 
   return entities;
 };

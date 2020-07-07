@@ -1,22 +1,20 @@
 import React, {Component} from 'react';
 import {
-  Dimensions,
   StyleSheet,
   Text,
   View,
   StatusBar,
-  Alert,
   TouchableOpacity,
-  Image,
 } from 'react-native';
 import Matter from 'matter-js';
 import {GameEngine} from 'react-native-game-engine';
 
 import Player from './components/Player';
 import Box from './components/Box';
+import Arrow from './components/controls/Arrow';
 import Physics, {resetPipes} from './utils/physics';
 import constants from './constants';
-// import Images from './assets/Images';
+import {arrowSize, arrows} from './constants/controls';
 
 export default class App extends Component {
   constructor(props) {
@@ -99,11 +97,6 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* <Image
-          source={Images.background}
-          style={styles.backgroundImage}
-          resizeMode="stretch"
-        /> */}
         <GameEngine
           ref={ref => {
             this.gameEngine = ref;
@@ -115,7 +108,11 @@ export default class App extends Component {
           entities={this.entities}>
           <StatusBar hidden={true} />
         </GameEngine>
-        {/* <Text style={styles.score}>{this.state.score}</Text> */}
+        <View style={styles.arrowsContainer}>
+          {arrows.map(a => (
+            <Arrow {...a} player={this.entities.player.body} />
+          ))}
+        </View>
         {!this.state.running && (
           <TouchableOpacity
             style={styles.fullScreenButton}
@@ -144,6 +141,13 @@ const styles = StyleSheet.create({
     right: 0,
     width: constants.MAX_WIDTH,
     height: constants.MAX_HEIGHT,
+  },
+  arrowsContainer: {
+    position: 'absolute',
+    bottom: 100,
+    right: 50,
+    width: arrowSize * 3,
+    height: arrowSize * 2,
   },
   gameContainer: {
     position: 'absolute',
