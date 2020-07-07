@@ -1,15 +1,6 @@
-import React from 'react';
-import {AppRegistry, SafeAreaView} from 'react-native';
+import {AppRegistry} from 'react-native';
 
-import App from './app';
+import CloverGame from './CloverGame';
 import {name as appName} from './app.json';
 
-const CloverGame = () => {
-  return (
-    <SafeAreaView>
-      <App />
-    </SafeAreaView>
-  );
-};
-
-AppRegistry.registerComponent(appName, CloverGame);
+AppRegistry.registerComponent(appName, () => CloverGame);
