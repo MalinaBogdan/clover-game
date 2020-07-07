@@ -5,6 +5,14 @@ export const blockSize = 50;
 export default [
   {
     x: constants.MAX_WIDTH / 2,
+    y: constants.MAX_HEIGHT,
+    width: constants.MAX_WIDTH * 10,
+    height: 10,
+    type: 'edge',
+    color: 'red',
+  },
+  {
+    x: constants.MAX_WIDTH / 2,
     y: constants.MAX_HEIGHT - blockSize,
     width: constants.MAX_WIDTH,
     height: blockSize,

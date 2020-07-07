@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, {Component} from 'react';
 import {
   StyleSheet,
@@ -54,9 +55,12 @@ export default class App extends Component {
 
     Matter.World.add(world, [player, ...map.map(({body}) => body)]);
     Matter.Events.on(engine, 'collisionStart', event => {
-      var pairs = event.pairs;
-      console.log(event);
-      // this.gameEngine.dispatch({type: 'game-over'});
+      const {bodyA} = _.cloneDeep(event.pairs[0]);
+      console.log(bodyA);
+
+      if (bodyA.label === 'edge') {
+        setTimeout(() => this.gameEngine.dispatch({type: 'game-over'}), 1000);
+      }
     });
 
     return {
@@ -104,7 +108,11 @@ export default class App extends Component {
         </GameEngine>
         <View style={styles.arrowsContainer}>
           {arrows.map(a => (
-            <Arrow {...a} player={this.entities.player.body} />
+            <Arrow
+              key={a.direction}
+              {...a}
+              player={this.entities.player.body}
+            />
           ))}
         </View>
         {!this.state.running && (
