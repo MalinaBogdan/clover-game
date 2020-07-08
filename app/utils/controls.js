@@ -1,9 +1,9 @@
+import _ from 'lodash';
 import Matter from 'matter-js';
 
 import {deltaX, deltaY} from '../constants/controls';
 
 export const movePlayer = (player, x, y) => {
-  console.log(player.body.velocity, x, y);
   Matter.Body.setVelocity(player.body, {
     x,
     y,

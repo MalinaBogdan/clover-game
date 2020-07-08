@@ -45,6 +45,14 @@ export default class App extends Component {
       constants.MAX_HEIGHT / 2,
       constants.PLAYER_WIDTH,
       constants.PLAYER_HEIGHT,
+      {
+        inertia: Infinity, //prevents player rotation
+        friction: 0.002,
+        frictionAir: 0.001,
+        //frictionStatic: 0.5,
+        restitution: 0,
+        sleepThreshold: Infinity,
+      },
     );
 
     const camera = {
@@ -52,10 +60,11 @@ export default class App extends Component {
       offsetX: 0,
     };
 
+    Matter.Body.setMass(player, 5);
     Matter.World.add(world, [player, ...map.map(({body}) => body)]);
     Matter.Events.on(engine, 'collisionStart', event => {
       const {bodyA} = _.cloneDeep(event.pairs[0]);
-      console.log(bodyA);
+      // console.log(bodyA);
 
       if (bodyA.label === 'edge') {
         setTimeout(() => this.gameEngine.dispatch({type: 'game-over'}), 1000);
