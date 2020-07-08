@@ -18,7 +18,7 @@ export default class Box extends Component {
     clearInterval(this.interval);
   }
   render() {
-    const {label, style, styleText} = this.props;
+    const {label, style} = this.props;
 
     return (
       <TouchableWithoutFeedback
@@ -26,7 +26,7 @@ export default class Box extends Component {
         onPressIn={() => this.onPressIn()}
         onPressOut={() => this.onPressOut()}>
         <View style={style}>
-          <Text styleText={style}>{label}</Text>
+          <Text>{label}</Text>
         </View>
       </TouchableWithoutFeedback>
     );

@@ -52,9 +52,5 @@ export const arrows = [
       justifyContent: 'center',
       alignItems: 'center',
     },
-    styleText: {
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
   },
 ];
