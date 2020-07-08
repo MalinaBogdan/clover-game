@@ -8,7 +8,7 @@ export default (entities, {screen}) => {
   let diffY = anchorY - player.body.position.y - camera.offsetY;
   let diffX = anchorX - player.body.position.x - camera.offsetX;
 
-  camera.offsetY += diffY * 0.05;
+  camera.offsetY += diffY * 0.15;
   camera.offsetX += diffX * 0.15;
 
   return entities;

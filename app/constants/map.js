@@ -34,13 +34,23 @@ export default [
     type: 'block',
   },
   {
-    x: 3 * blockSize,
+    x: 7 * blockSize,
     y: 7 * blockSize,
     type: 'block',
   },
   {
     x: 4 * blockSize,
     y: 6 * blockSize,
+    type: 'block',
+  },
+  {
+    x: 4 * blockSize,
+    y: 5 * blockSize,
+    type: 'block',
+  },
+  {
+    x: 2 * blockSize,
+    y: 5 * blockSize,
     type: 'block',
   },
 ].map(b => generateBlock(b));

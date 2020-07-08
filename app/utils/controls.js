@@ -8,6 +8,12 @@ export const movePlayer = (player, x, y) => {
     x,
     y,
   });
+
+  // const mech = {};
+  // mech.pos.x = player.body.position.x;
+  // mech.pos.y = player.body.position.y;
+  // mech.Vx = player.velocity.x;
+  // mech.Vy = player.velocity.y;
 };
 
 export const movePlayerByArrow = (direction, player) => {
