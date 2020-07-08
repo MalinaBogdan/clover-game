@@ -1,6 +1,6 @@
 import Matter from 'matter-js';
 
-import {deltaX} from '../constants/controls';
+import {deltaX, deltaY} from '../constants/controls';
 
 export const movePlayer = (player, x, y) => {
   console.log(player, x, y);
@@ -18,6 +18,10 @@ export const movePlayerByArrow = (direction, player) => {
     }
     case 'right': {
       movePlayer(player, deltaX, 0);
+      break;
+    }
+    case 'up': {
+      movePlayer(player, 0, deltaY);
       break;
     }
   }

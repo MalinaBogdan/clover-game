@@ -1,31 +1,34 @@
 import React, {Component} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {Text, TouchableWithoutFeedback, View} from 'react-native';
 
 import {movePlayerByArrow} from '../../../utils/controls';
+
+const interval = 200;
 
 export default class Box extends Component {
   onPress() {
     const {player, direction} = this.props;
+
     movePlayerByArrow(direction, player);
   }
+  onPressIn() {
+    this.interval = setInterval(() => this.onPress(), interval);
+  }
+  onPressOut() {
+    clearInterval(this.interval);
+  }
   render() {
-    const {color, size, x, y, label} = this.props;
+    const {label, style, styleText} = this.props;
 
     return (
-      <TouchableOpacity
+      <TouchableWithoutFeedback
         onPress={() => this.onPress()}
-        style={{
-          position: 'absolute',
-          left: x,
-          top: y,
-          width: size,
-          height: size,
-          backgroundColor: color || 'grey',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Text>{label}</Text>
-      </TouchableOpacity>
+        onPressIn={() => this.onPressIn()}
+        onPressOut={() => this.onPressOut()}>
+        <View style={style}>
+          <Text styleText={style}>{label}</Text>
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }

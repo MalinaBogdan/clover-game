@@ -1,58 +1,60 @@
 import {MAX_WIDTH, MAX_HEIGHT} from './index';
 
-const margin = 10;
-export const arrowSize = 50;
+const margin = 65;
+export const arrowSize = 60;
 export const deltaX = 5;
+export const deltaY = 20;
 export const arrows = [
   {
-    label: '<-',
+    label: 'X',
     size: arrowSize,
     direction: 'left',
-    x: -margin,
-    y: 50,
-    style={
-        position: 'absolute',
-        left: x,
-        top: y,
-        width: size,
-        height: size,
-        backgroundColor: color || 'grey',
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
+    style: {
+      position: 'absolute',
+      left: margin - margin,
+      top: margin * 2,
+      width: arrowSize,
+      height: arrowSize,
+      borderRadius: 50,
+      backgroundColor: 'blue',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
   },
-  //   {
-  //     label: '->',
-  //     size: arrowSize,
-  //     direction: 'right',
-  //     x: arrowSize * 2 + margin,
-  //     y: 50,
-  //     style={
-  //         position: 'absolute',
-  //         left: x,
-  //         top: y,
-  //         width: size,
-  //         height: size,
-  //         backgroundColor: color || 'grey',
-  //         justifyContent: 'center',
-  //         alignItems: 'center',
-  //       },
-  //   },
   {
-    label: '/\\',
+    label: 'B',
+    size: arrowSize,
+    direction: 'right',
+    style: {
+      position: 'absolute',
+      left: margin + margin,
+      top: margin * 2,
+      width: arrowSize,
+      height: arrowSize,
+      borderRadius: 50,
+      backgroundColor: 'red',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  },
+  {
+    label: 'Y',
     size: arrowSize,
     direction: 'up',
-    x: arrowSize,
-    y: -margin,
-    // style={
-    //     position: 'absolute',
-    //     left: x,
-    //     top: y,
-    //     width: size,
-    //     height: size,
-    //     backgroundColor: color || 'grey',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //   },
+    style: {
+      position: 'absolute',
+      left: margin,
+      top: margin,
+      width: arrowSize,
+      height: arrowSize,
+      borderRadius: 50,
+      backgroundColor: 'yellow',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    styleText: {
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
   },
 ];
