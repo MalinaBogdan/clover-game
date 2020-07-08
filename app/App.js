@@ -11,12 +11,11 @@ import Matter from 'matter-js';
 import {GameEngine} from 'react-native-game-engine';
 
 import Player from './components/Player';
-import Box from './components/Box';
 import Arrow from './components/controls/Arrow';
 import CameraRenderer from './components/CameraRenderer';
 
 import Camera from './utils/camera';
-import Physics, {resetPipes} from './utils/physics';
+import Physics from './utils/physics';
 import constants from './constants';
 import map from './constants/map';
 import {arrowSize, arrows} from './constants/controls';
@@ -44,8 +43,8 @@ export default class App extends Component {
     let player = Matter.Bodies.rectangle(
       constants.MAX_WIDTH / 2,
       constants.MAX_HEIGHT / 2,
-      constants.BIRD_WIDTH,
-      constants.BIRD_HEIGHT,
+      constants.PLAYER_WIDTH,
+      constants.PLAYER_HEIGHT,
     );
 
     const camera = {
@@ -67,7 +66,12 @@ export default class App extends Component {
       ...map,
       camera,
       physics: {engine, world},
-      player: {body: player, pose: 1, renderer: Player},
+      player: {
+        body: player,
+        pose: 1,
+        renderer: Player,
+        size: {width: constants.PLAYER_WIDTH, height: constants.PLAYER_HEIGHT},
+      },
     };
   };
 
@@ -108,11 +112,7 @@ export default class App extends Component {
         </GameEngine>
         <View style={styles.arrowsContainer}>
           {arrows.map(a => (
-            <Arrow
-              key={a.direction}
-              {...a}
-              player={this.entities.player.body}
-            />
+            <Arrow key={a.direction} {...a} player={this.entities.player} />
           ))}
         </View>
         {!this.state.running && (

@@ -3,7 +3,7 @@ import {MAX_WIDTH, MAX_HEIGHT} from './index';
 const margin = 65;
 export const arrowSize = 60;
 export const deltaX = 5;
-export const deltaY = 20;
+export const deltaY = 10;
 export const arrows = [
   {
     label: 'X',

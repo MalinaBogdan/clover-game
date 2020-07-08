@@ -3,8 +3,8 @@ import Matter from 'matter-js';
 import {deltaX, deltaY} from '../constants/controls';
 
 export const movePlayer = (player, x, y) => {
-  console.log(player, x, y);
-  Matter.Body.setVelocity(player, {
+  console.log(player.body.velocity, x, y);
+  Matter.Body.setVelocity(player.body, {
     x,
     y,
   });
@@ -21,7 +21,7 @@ export const movePlayerByArrow = (direction, player) => {
       break;
     }
     case 'up': {
-      movePlayer(player, 0, deltaY);
+      movePlayer(player, 0, -deltaY);
       break;
     }
   }
