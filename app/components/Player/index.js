@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, {Component} from 'react';
 import {View} from 'react-native';
 import SpriteSheet from 'rn-sprite-sheet';
@@ -5,6 +6,28 @@ import SpriteSheet from 'rn-sprite-sheet';
 export default class Player extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {walking: false};
+  }
+
+  static getDerivedStateFromProps(props) {
+    const {
+      body: {velocity},
+    } = props;
+
+    return {
+      walking: !!Math.floor(velocity.x),
+    };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const {walking} = this.state;
+
+    if (walking && !prevState.walking) {
+      this.player.play({type: 'walk'});
+    } else if (!walking && prevState.walking) {
+      this.player.stop();
+    }
   }
 
   render() {
@@ -16,7 +39,7 @@ export default class Player extends Component {
 
     return (
       <SpriteSheet
-        ref={ref => (this.mummy = ref)}
+        ref={ref => (this.player = ref)}
         source={require('../../assets/sprites/SPRITE3000.png')}
         columns={11}
         rows={1}
@@ -28,7 +51,7 @@ export default class Player extends Component {
           height: height,
         }}
         animations={{
-          walk: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+          walk: _.range(11),
           // appear: Array.from({length: 15}, (v, i) => i + 18),
           // die: Array.from({length: 21}, (v, i) => i + 33),
         }}

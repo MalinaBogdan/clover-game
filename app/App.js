@@ -49,7 +49,7 @@ export default class App extends Component {
         inertia: Infinity, //prevents player rotation
         friction: 0.002,
         frictionAir: 0.001,
-        //frictionStatic: 0.5,
+        frictionStatic: 0.5,
         restitution: 0,
         sleepThreshold: Infinity,
       },
