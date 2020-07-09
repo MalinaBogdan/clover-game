@@ -1,7 +1,7 @@
 import constants from './index';
 import {generateBlock} from '../utils/map';
 
-export const blockSize = 50;
+export const blockSize = constants.MAX_WIDTH / 20;
 export default [
   {
     x: constants.MAX_WIDTH / 2,
@@ -13,7 +13,7 @@ export default [
   },
   {
     x: constants.MAX_WIDTH / 2,
-    y: constants.MAX_HEIGHT - blockSize,
+    y: constants.MAX_HEIGHT,
     width: constants.MAX_WIDTH,
     height: blockSize,
     type: 'floor',

@@ -108,7 +108,6 @@ export default class App extends Component {
   };
 
   render() {
-    console.log(_.cloneDeep(this.entities.player.body));
     return (
       <View style={styles.container}>
         <GameEngine

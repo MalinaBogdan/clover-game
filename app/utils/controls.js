@@ -9,7 +9,7 @@ export const movePlayer = (player, x, y) => {
   //   y: -player.body.velocity.y,
   // });
   // Matter.Body.applyForce(player.body, player.body.position, {x, y});
-  console.log(player.body.id, player.body.position.x);
+
   Matter.Body.setVelocity(player.body, {x, y});
 
   // Matter.Body.translate(player.body, {x, y});
