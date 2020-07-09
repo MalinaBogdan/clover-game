@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
-import {View} from 'react-native';
 import SpriteSheet from 'rn-sprite-sheet';
 
 export default class Player extends Component {
@@ -24,7 +23,7 @@ export default class Player extends Component {
     const {walking} = this.state;
 
     if (walking && !prevState.walking) {
-      this.player.play({type: 'walk'});
+      this.player.play({type: 'walk', loop: true});
     } else if (!walking && prevState.walking) {
       this.player.stop();
     }
@@ -56,16 +55,6 @@ export default class Player extends Component {
           // die: Array.from({length: 21}, (v, i) => i + 33),
         }}
       />
-      // <View
-      //   style={{
-      //     backgroundColor: 'red',
-      //     position: 'absolute',
-      //     left: x,
-      //     top: y,
-      //     width: width,
-      //     height: height,
-      //   }}
-      // />
     );
   }
 }

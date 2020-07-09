@@ -53,4 +53,9 @@ export default [
     y: 5 * blockSize,
     type: 'block',
   },
+  {
+    x: 15 * blockSize,
+    y: 6 * blockSize,
+    type: 'block',
+  },
 ].map(b => generateBlock(b));
