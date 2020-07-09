@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 
 export default class Box extends Component {
   render() {
     const {
+      id,
       size: {width, height},
     } = this.props;
 
@@ -13,14 +14,18 @@ export default class Box extends Component {
     return (
       <View
         style={{
+          borderWidth: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
           position: 'absolute',
           left: x,
           top: y,
           width: width,
           height: height,
           backgroundColor: this.props.color || 'grey',
-        }}
-      />
+        }}>
+        <Text>{id}</Text>
+      </View>
     );
   }
 }

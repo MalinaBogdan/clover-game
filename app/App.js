@@ -67,7 +67,7 @@ export default class App extends Component {
       // console.log(bodyA);
 
       if (bodyA.label === 'edge') {
-        setTimeout(() => this.gameEngine.dispatch({type: 'game-over'}), 1000);
+        setTimeout(() => this.gameEngine.dispatch({type: 'game-over'}), 500);
       }
     });
 
@@ -97,7 +97,10 @@ export default class App extends Component {
   };
 
   reset = () => {
-    this.gameEngine.swap(this.setupWorld());
+    const entities = this.setupWorld();
+
+    this.entities.player = entities.player;
+    this.gameEngine.swap(entities);
     this.setState({
       running: true,
       score: 0,
@@ -105,6 +108,7 @@ export default class App extends Component {
   };
 
   render() {
+    console.log(_.cloneDeep(this.entities.player.body));
     return (
       <View style={styles.container}>
         <GameEngine
